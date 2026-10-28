@@ -1,0 +1,9 @@
+[project]
+name = "aman-simple-prompt"
+version = "1.0.0"
+description = "A literal multiline ComfyUI prompt node with Aman Dolorain branding and native H3 reference prompting guidance."
+authors = [{name = "Aman Dolorain"}]
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+readme = "README.md"
+dependencies = []
