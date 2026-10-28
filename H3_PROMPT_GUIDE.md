@@ -1,33 +1,61 @@
-# Native H3 reference prompting
+# Writing native H3 Reference-to-Video prompts
 
-Research checked: 2026-10-28. This guide applies to ComfyUI's native MiniMaxH3ReferenceToVideo connector, not a separate hosted API.
+Research checked 2026-10-28. Use this guide in the ONE multiline textbox; no separate form fields are needed. The node sends exactly what you type. It does not enforce a format or infer missing information.
 
-## Write a normal paragraph
+## Practical writing order
 
-Describe the scene and subject, what happens, how the camera moves, the lighting, and the desired sound or speech. Assign each reference a clear purpose such as subject identity, clothes, environment, motion or voice. These are writing suggestions, not mandatory node fields.
+Explain which connected references provide the character, clothing, setting, motion, camera or voice. Then describe the overall look and each shot in playback order. Inside each shot, keep subject appearance/placement, surroundings/lighting, actions, camera and the corresponding dialogue/sound together. Separate ambience from audience-only background score. This is an editorial recommendation derived from the official guide, not a compulsory keyword parser.
 
-## Native reference tags
+## Official full-reference rewrite format
 
-| Connected input | Tag in prompt |
+For a detailed structured prompt, put these headings inside the same textbox:
+
+```text
+subject_definitions:
+[Your reference definitions and subject characteristics.]
+
+summary:
+[Your task type and brief description of the intended video.]
+
+retention_analysis:
+[Your intended preservation, transfer or audio-reference relationships.]
+
+detailed_description:
+[Overall visual style.]
+[Shot 1] [Your opening shot, including relevant lighting, action, camera and dialogue.]
+[Shot 2] At [your actual cut time], [your next shot, if needed.]
+
+overall_soundscape:
+[Your intended ambience and physical sounds.]
+
+non_diegetic_music:
+[Your intended audience-only score, or N/A if you explicitly want none.]
+```
+
+Bracketed placeholder text above is explanatory, not ready-to-generate content. Replace it with your own instructions; do not include a second shot or sound you do not intend. The node never inserts this template automatically.
+
+The six-section order is the official full-reference rewrite format, not a claim that every simple native prompt must contain all six headings. There is no universal compulsory H3 trigger word. Use a trigger/embedding only when required by a loaded asset and supported by that asset's documentation.
+
+## Reference labels
+
+| Connector input | Prompt label |
 | --- | --- |
 | ref_image_0 | <Picture 1> |
 | ref_image_1 | <Picture 2> |
 | ref_image_2 | <Picture 3> |
 | ref_video_0 | <Video 1> |
-| ref_audio_0, with no video soundtrack references connected | <Audio 1> |
+| ref_audio_0 with no connected video soundtrack | <Audio 1> |
 
-Socket numbering starts at zero; prompt numbering starts at one. Pictures, videos and audio each have their own count. Connected video soundtracks are numbered before standalone audio, so adding a video soundtrack can shift the standalone audio label. Only mention references actually connected. The node does not inspect or renumber your references.
+Pictures, videos and audio each have independent one-based numbering. Connected video soundtracks are numbered before standalone audio. Only mention actual connected references. Define each reference's role clearly and reuse labels consistently. Do not assume that video sound is connected just because the file has a soundtrack.
 
-## Optional example for three images, a video and one standalone audio
+## Dialogue and language
 
-Assumes Picture 1 is the person, Picture 2 is clothing, Picture 3 is the setting, Video 1 is camera/movement guidance, and no video soundtrack is connected. Adapt these roles to your actual files.
+The official rewrite convention uses English descriptions while keeping dialogue, lyrics and visible text in their original language. The textbox accepts all Unicode; this is not automatic translation. Follow the guide's speaker and <d>[Language] ...</d> rules when writing explicit speech/lyrics. Keep dialogue inside its shot. Do not reorder events solely to group all lighting or dialogue together across shots.
 
-Use the man in <Picture 1> as the main character, with the clothing from <Picture 2>, in the setting shown in <Picture 3>. He walks slowly toward the camera and gives a restrained, natural performance. Follow the camera movement from <Video 1>. Keep his appearance and clothing consistent throughout the shot, with realistic lighting and natural facial movement. Use <Audio 1> as the vocal performance reference and match the visible singing to it.
+The model may interpret audio reference instructions; prompt text alone does not guarantee sample-identical audio, perfect face consistency or exact lip sync.
 
-This is an original writing example, not a quoted official prompt. A prompt can request appearance consistency or matched singing, but cannot guarantee exact identity, frame-perfect lip sync or bit-identical audio. If the exact source soundtrack is required, retain that audio for the final video assembly.
+## Primary sources
 
-## Sources
-
-- ComfyUI native H3 guide, Reference-to-Video prompting tips: https://github.com/Comfy-Org/docs/blob/main/tutorials/video/minimax/minimax-h3-native.mdx
-- Native connector tag/schema implementation: https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_minimax_h3.py
-- MiniMax H3 multimodal role assignment overview: https://www.minimax.io/blog/minimax-h3
+- MiniMax official R2V rewrite guide: https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/docs/VIDEO_PROMPT_WRITING_GUIDE_ref_en.md
+- ComfyUI prompt guide: https://github.com/Comfy-Org/docs/blob/main/tutorials/video/minimax/minimax-h3-prompt-guide.mdx
+- Native connector code: https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_minimax_h3.py

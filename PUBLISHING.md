@@ -1,4 +1,4 @@
-# Publish H3 Simple Prompt 1.0.0
+# Publish H3 Simple Prompt 1.2.0
 
 Repository: https://github.com/AmanDolorain/H3-Simple-Prompt
 Registry node ID: h3-simple-prompt

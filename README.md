@@ -1,27 +1,36 @@
-# H3 Simple Prompt — v1.0.0
+# H3 Simple Prompt — v1.2.0
 
 Author: Aman Dolorain · 2026-10-28
 
-One large blank paragraph textbox. One STRING output named `prompt`. No models, API keys, extra Python packages, random tags, prompt enhancement, injected templates or extra controls.
+One blank multiline textbox. One prompt STRING output. Resize the node to suit your writing space. The complete prompt is passed through exactly: line breaks, spaces, reference tags, Unicode, dialogue and punctuation are preserved. No translation, expansion, template injection or automatic reordering.
 
-## Install
+## Install and connect
 
-Put the complete `AmanSimplePrompt` folder in `ComfyUI/custom_nodes/`. Keep `__init__.py` and `web/author.js` inside it. Restart ComfyUI, hard-refresh the browser, then search for **H3 Simple Prompt** (category: Aman Dolorain/Text).
+Replace the complete AmanSimplePrompt folder in ComfyUI/custom_nodes. Restart ComfyUI and hard-refresh the browser. Search H3 Simple Prompt. Connect its prompt output to the prompt input of MiniMax H3 Reference to Video. CLIP, VAEs and references remain connected to the H3 connector.
 
-Connect **H3 Simple Prompt → prompt (STRING)** to **MiniMax H3 Reference to Video → prompt**. This node does not encode text or accept CLIP. CLIP and references remain connected to the H3 connector.
+## Improvements
 
-You can also open `Simple_Prompt_Starter.json`, which contains just this node, then copy it into your workflow.
+- Return to one multiline textbox; no separate structured fields.
+- Verified H3 reference prompt guidance in node help, textbox tooltip and H3_PROMPT_GUIDE.md.
+- Approved header-colored internal footer, matching title font/inset, with ♪ Aman Dolorain.
+- Hide the extra H3-Simple-Prompt Registry badge above the footer.
+- Preserve version 1.0.x single-box prompts unchanged.
+- Merge experimental 1.1.0 multi-field workflows into the single textbox using the same previous section order; no field contents deliberately discarded. This happens only during old-workflow loading, not during normal prompt execution.
 
-## Behavior
+web/fields.js now contains compatibility code only; upload the new version of this file too. Do not keep the old structured-fields JavaScript. Back up your workflow before upgrading. If the live frontend retains the old layout, add a fresh H3 Simple Prompt node and copy your complete prompt into it.
 
-Text is passed through exactly, including punctuation, line breaks, spaces, Hindi/Punjabi text and H3 reference tags. Empty input remains empty. There is no automatic translation, random expansion or prefix/suffix. The textbox starts blank. Resize the node for a larger writing area. The footer uses the approved matching header color, title typography and left alignment.
+## Prompt structure
 
-For H3 reference assignment and an optional example, see H3_PROMPT_GUIDE.md. The example is documentation only; it is never inserted into your text.
+You can write normal paragraphs or paste the full six-section official R2V rewrite format into the same textbox. The official format is a writing guide; this node does not parse or enforce it. Keep shot-specific lighting, action, camera, dialogue and reference usage together so their timing remains clear. No compulsory trigger prefix is inserted.
 
-## Validation
+## Verification
 
-Run `python -m unittest discover -s tests -v`. JavaScript syntax can be checked with `node --input-type=module --check < web/author.js`. Tests verify literal text and the ComfyUI registration/schema. Live installed ComfyUI layout and GPU generation have not been tested here; the footer adapts the previously approved VideoControl implementation.
+python -m unittest discover -s tests -v
+node tests/test_fields.mjs
+node --input-type=module --check < web/author.js
 
-## GitHub
+Local literal-text/schema and old-workflow migration checks pass. Live ComfyUI rendering and GPU generation remain untested in this update.
 
-Upload the contents of this folder to a dedicated repository root. Include `.github` and `.gitignore` on the first upload. Commit: `Release v1.0.0: add H3 Simple Prompt node with branded footer`. Release tag: `v1.0.0`; release title: `H3 Simple Prompt v1.0.0`.
+## GitHub / Registry
+
+Version: 1.2.0. Upload the complete repository contents, including updated tests and both web files. Existing .gitignore, tests.yml and publish.yml are unchanged. Run the existing manual Publish to Comfy Registry workflow. Commit: Restore single multiline H3 prompt and fix footer badge. Release tag: v1.2.0; title: H3 Simple Prompt v1.2.0.

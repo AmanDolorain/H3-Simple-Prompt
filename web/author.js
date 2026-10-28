@@ -56,12 +56,14 @@ function syncCredits() {
         let row = [...body.children].find(
             (element) => element.classList.contains("mt-auto") && element !== state.ownRow,
         );
-        // Keep branding in its own reserved footer, apart from controls.
-        if (row) {
-            for (const element of row.querySelectorAll("*")) {
-                if (["Aman-Simple-Prompt", "H3 Simple Prompt"].includes(element.textContent.trim())) {
-                    element.style.display = "none";
-                }
+        // Registry badges use the package display name or normalized repository name.
+        // Match only this package; retain badges belonging to other extensions.
+        const packageNames = new Set(["h3simpleprompt", "amansimpleprompt"]);
+        for (const element of (row ? row.querySelectorAll("*") : body.querySelectorAll('[class*="badge"], [class*="Badge"]'))) {
+            if (element.closest(".aman-simple-prompt-credit-row")) continue;
+            const key = element.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+            if (packageNames.has(key) && element.style.display !== "none") {
+                element.style.display = "none";
             }
         }
         if (!state.ownRow?.isConnected) {

@@ -1,7 +1,7 @@
 [project]
 name = "h3-simple-prompt"
-version = "1.0.0"
-description = "A literal multiline ComfyUI prompt node with Aman Dolorain branding and native H3 reference prompting guidance."
+version = "1.2.0"
+description = "Single multiline prompt for native H3 Reference to Video with literal text output, official prompting guidance and Aman Dolorain branding."
 authors = [{name = "Aman Dolorain"}]
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
